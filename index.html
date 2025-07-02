@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Landing Page</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- GSAP CDN for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      overflow-x: hidden;
+    }
+    .glow-container {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .glow-text {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      animation: textGlow 2s ease-in-out infinite alternate;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1); }
+      50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.2); }
+    }
+    @keyframes textGlow {
+      0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); }
+      100% { text-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 25px rgba(255, 255, 255, 0.8); }
+    }
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .fire-button {
+      background: linear-gradient(45deg, #ff4500, #ffa500, #ff4500);
+      box-shadow: 0 0 15px rgba(255, 69, 0, 0.7), 0 0 25px rgba(255, 165, 0, 0.5);
+      animation: fireGlow 1.5s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+    }
+    .fire-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: flare 2s linear infinite;
+    }
+    @keyframes fireGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(255, 69, 0, 0.7), 0 0 25px rgba(255, 165, 0, 0.5); }
+      50% { box-shadow: 0 0 25px rgba(255, 69, 0, 0.9), 0 0 35px rgba(255, 165, 0, 0.7); }
+    }
+    @keyframes flare {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center text-white font-sans">
+  <!-- Header -->
+  <header class="w-full py-6 px-4 md:px-8 fixed top-0 z-10 bg-gradient-to-b from-[#1a1a1a] to-transparent">
+    <nav class="flex justify-between items-center max-w-7xl mx-auto">
+      <h1 class="text-2xl font-bold tracking-tight">RayMond</h1>
+      <div class="space-x-4">
+        <a href="#home" class="hover:text-gray-300 transition">Home</a>
+        <a href="#about" class="hover:text-gray-300 transition">About</a>
+        <a href="#contact" class="hover:text-gray-300 transition">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Section -->
+  <main class="flex flex-col items-center justify-center min-h-screen w-full px-4">
+    <div class="glow-container rounded-2xl p-8 md:p-12 max-w-2xl text-center">
+      <h2 class="glow-text text-3xl md:text-5xl font-extrabold tracking-wide">
+        "Funmike Lied To Me, Now I Hate Her"
+      </h2>
+      <p class="mt-4 text-gray-400 text-lg">Join me in creating a brighter future together.</p>
+      <button class="mt-6 px-6 py-3 fire-button text-black font-semibold rounded-full transition transform hover:scale-105">
+        Burn The Witch
+      </button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-4 text-center text-gray-500">
+    <p>© 2025 Glowing Future. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // GSAP Animations
+    gsap.from(".glow-container", {
+      opacity: 0,
+      y: 50,
+      duration: 1.5,
+      ease: "power3.out"
+    });
+    gsap.from(".glow-text", {
+      opacity: 0,
+      scale: 0.8,
+      duration: 2,
+      delay: 0.5,
+      ease: "elastic.out(1, 0.3)"
+    });
+
+    // Particle Animation
+    function createParticle() {
+      const particle = document.createElement("div");
+      particle.classList.add("particle");
+      document.body.appendChild(particle);
+
+      const size = Math.random() * 4 + 2;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${Math.random() * window.innerWidth}px`;
+      particle.style.top = `${window.innerHeight}px`;
+
+      gsap.to(particle, {
+        y: -window.innerHeight - 100,
+        x: `+=${Math.random() * 100 - 50}`,
+        opacity: 0,
+        duration: Math.random() * 3 + 2,
+        ease: "power1.out",
+        onComplete: () => particle.remove()
+      });
+    }
+
+    setInterval(createParticle, 200);
+  </script>
+</body>
+</html>
