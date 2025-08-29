@@ -87,7 +87,7 @@
         "Funmike Lied To Me, Now I Hate Her"
       </h2>
       <p class="mt-4 text-gray-400 text-lg">Join me in creating a brighter future together.</p>
-      <button class="mt-6 px-6 py-3 fire-button text-black font-semibold rounded-full transition transform hover:scale-105">
+      <button id="apiButton" class="mt-6 px-6 py-3 fire-button text-black font-semibold rounded-full transition transform hover:scale-105">
         Burn The Witch
       </button>
     </div>
@@ -137,6 +137,27 @@
     }
 
     setInterval(createParticle, 200);
+
+    async function handleButtonClick() {
+      try {
+        const response = await fetch('http://localhost:5000/oauth2/authorization/google', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+        const data = await response.json();
+        alert('Action completed: ' );
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      }
+    }
+
+    document.getElementById('apiButton').addEventListener('click', handleButtonClick);
   </script>
 </body>
 </html>
