@@ -140,17 +140,8 @@
 
     async function handleButtonClick() {
       try {
-        const response = await fetch('http://localhost:5000/oauth2/authorization/google', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-      }
-        const data = await response.json();
-        alert('Action completed: ' );
+         window.location.href= 'http://localhost:5000/oauth2/authorization/google'
+          
       } catch (error) {
         console.error('Error:', error);
         alert('An error occurred. Please try again.');
